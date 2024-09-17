@@ -2,6 +2,7 @@
 
 namespace App\Command;
 
+use App\DataSource\Fmp\FmpApiService;
 use App\Service\FmpService;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -19,7 +20,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 )]
 class RunCommand extends Command
 {
-    public function __construct(private HttpClientInterface $httpClient, private FmpService $fmpService)
+    public function __construct(private FmpApiService $fmpApiService)
     {
         parent::__construct();
     }
@@ -44,8 +45,8 @@ class RunCommand extends Command
         if ($input->getOption('option1')) {
             // ...
         }
-
-        $this->fmpService->getStockData();
+        $data = $this->fmpApiService->test();
+        echo $data;
 
         return Command::SUCCESS;
     }
