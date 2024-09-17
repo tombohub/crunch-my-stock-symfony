@@ -46,7 +46,7 @@ class RunCommand extends Command
             // ...
         }
         $data = $this->fmpApiService->test();
-        echo $data;
+        var_dump($data);
 
         return Command::SUCCESS;
     }
