@@ -13,4 +13,9 @@ To have updated list of securities and their active and delisted status.
 ### Rules
 
 - only securities with 4 characters and less. Those with more characters are derived securities.
-- only stocks (not ETFs) from NASDAQ and NYSE exchanges. Others are too obscure for now.
+- only security type stocks (not ETFs) from NASDAQ and NYSE exchanges for now.
+- include delisted securities for avoding survirorship bias in backtesting
+
+### Provider
+
+[Alphavantage](https://www.alphavantage.co/documentation/#listing-status): has specific endpoint for active and delisted securities
