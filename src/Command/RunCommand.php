@@ -2,7 +2,7 @@
 
 namespace App\Command;
 
-use App\DataSource\Fmp\FmpApiService;
+use App\DataProvider\Fmp\FmpApiService;
 use App\Service\FmpService;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -45,7 +45,7 @@ class RunCommand extends Command
         if ($input->getOption('option1')) {
             // ...
         }
-        $data = $this->fmpApiService->test();
+        $data = $this->fmpApiService->dummy();
         var_dump($data);
 
         return Command::SUCCESS;

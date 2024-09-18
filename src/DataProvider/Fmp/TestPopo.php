@@ -1,8 +1,8 @@
 <?php
 
-namespace App\DataSource\Fmp;
+namespace App\DataProvider\Fmp;
 
-class TestPopo
+readonly class TestPopo
 {
     public function __construct(
 
@@ -10,6 +10,6 @@ class TestPopo
         public string $name,
         public string $currency,
         public string $stockExchange,
-        public string $exchangeShortName
+        public string $exchangeShortName,
     ) {}
 }

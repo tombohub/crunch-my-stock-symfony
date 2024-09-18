@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DataSource\Fmp;
+namespace App\DataProvider\Fmp;
 
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -10,7 +10,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
  *
  * This class is responsible for interacting with the Financial Modeling Prep API.
  *
- * @package App\DataSource\Fmp
+ * @package App\DataProvider\Fmp
  */
 class FmpApiClient
 {

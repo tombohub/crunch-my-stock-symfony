@@ -1,14 +1,14 @@
 <?php
 
-namespace App\DataSource\Fmp;
+namespace App\DataProvider\Fmp;
 
-use App\DataSource\Fmp\TestPopo;
+use App\DataProvider\Fmp\TestPopo;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class FmpApiService
 {
     public function __construct(private FmpApiClient $apiClient, private SerializerInterface $serializer) {}
-    public function test()
+    public function dummy()
     {
         $response = $this->apiClient->get('https://financialmodelingprep.com/api/v3/symbol/available-indexes');
         $content = $response->getContent();
