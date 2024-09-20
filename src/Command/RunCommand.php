@@ -2,8 +2,8 @@
 
 namespace App\Command;
 
-use App\DataProvider\Fmp\FmpApiService;
-use App\Service\FmpService;
+
+use App\Service\DataProviderService;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -11,8 +11,9 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\HttpClient\HttpClient;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
+
+
+use function PHPSTORM_META\type;
 
 #[AsCommand(
     name: 'run',
@@ -20,7 +21,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 )]
 class RunCommand extends Command
 {
-    public function __construct(private FmpApiService $fmpApiService)
+    public function __construct(private DataProviderService $dataProviderService)
     {
         parent::__construct();
     }
@@ -45,8 +46,11 @@ class RunCommand extends Command
         if ($input->getOption('option1')) {
             // ...
         }
-        $data = $this->fmpApiService->dummy();
-        var_dump($data);
+
+        $data = $this->dataProviderService->getSecurities();
+        dump($data);
+
+
 
         return Command::SUCCESS;
     }

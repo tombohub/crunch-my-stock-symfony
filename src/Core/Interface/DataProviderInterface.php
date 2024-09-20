@@ -2,4 +2,14 @@
 
 namespace App\Core\Interface;
 
-interface DataProviderInterface {}
+use App\Core\Dto\SecurityDto;
+
+interface DataProviderInterface
+{
+    /**
+     * Get securities data.
+     *
+     * @return SecurityDto[]
+     */
+    public function getSecurities(): array;
+}

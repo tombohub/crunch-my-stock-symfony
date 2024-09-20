@@ -9,10 +9,14 @@
     findUnusedCode="true"
 >
     <projectFiles>
-        <!-- <directory name="src" /> -->
+        <directory name="src" />
         <file name="play.php" />
         <ignoreFiles>
             <directory name="vendor" />
         </ignoreFiles>
     </projectFiles>
+
+    <plugins>
+        <pluginClass class="Psalm\SymfonyPsalmPlugin\Plugin" />
+    </plugins>
 </psalm>
