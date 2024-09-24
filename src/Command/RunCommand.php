@@ -3,7 +3,8 @@
 namespace App\Command;
 
 
-use App\Service\DataProviderService;
+use App\Core\Service\DataImportService;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -13,15 +14,13 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 
-use function PHPSTORM_META\type;
-
 #[AsCommand(
     name: 'run',
     description: 'Add a short description for your command',
 )]
 class RunCommand extends Command
 {
-    public function __construct(private DataProviderService $dataProviderService)
+    public function __construct(private DataImportService $importService, private LoggerInterface $logger)
     {
         parent::__construct();
     }
@@ -47,9 +46,9 @@ class RunCommand extends Command
             // ...
         }
 
-        $data = $this->dataProviderService->getSecurities();
-        dump($data);
 
+        $data = $this->importService->updateSecurities();
+        dump($data);
 
 
         return Command::SUCCESS;

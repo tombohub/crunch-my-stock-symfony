@@ -2,6 +2,11 @@
 
 namespace App\DataProvider\Alphavantage\Endpoint;
 
+use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
+
 /**
  * Class ListingDelistingStatusEndpoint.
  *
@@ -26,31 +31,31 @@ class ListingDelistingStatusEndpoint extends AbstractAlphavantageEndpoint
     /**
      * Request for securities with status active on exchange market.
      *
-     * @return array<int, ListingDelistingStatusResponse> an array of DTOs representing retrieved data
+     * @return string data in form of csv
+     *
+     * @throws ClientExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
      */
-    public function getActive(): array
+    public function getActive(): string
     {
-        $params = ['state' => 'active'];
-        $response = $this->apiClient->get(self::BASE_URL, $params);
-        $content = $response->getContent();
-        $data = $this->deserializeCsvArray($content);
-
-        return $data;
+        return $this->getByStatus('active');
     }
 
     /**
      * Request for securities with status delisted and no longer trading on exchange market.
      *
-     * @return array<int, ListingDelistingStatusResponse> an array of DTOs representing retrieved data
+     * @return string retrieved data in form of csv
+     *
+     * @throws ClientExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
      */
-    public function getDelisted(): array
+    public function getDelisted(): string
     {
-        $params = ['state' => 'delisted'];
-        $response = $this->apiClient->get(self::BASE_URL, $params);
-        $content = $response->getContent();
-        $data = $this->deserializeCsvArray($content);
-
-        return $data;
+        return $this->getByStatus('delisted');
     }
 
     /**
@@ -79,9 +84,27 @@ class ListingDelistingStatusEndpoint extends AbstractAlphavantageEndpoint
      */
     private function deserializeCsvArray(string $content): array
     {
-        /** @var array<int, ListingDelistingStatusResponse> $data */
+        /** @var array<int, ListingDelistingStatusResponse> $data * */
         $data = $this->serializer->deserialize($content, self::RESPONSE_DTO.'[]', 'csv');
 
         return $data;
+    }
+
+    /**
+     * Get securities by their status on market exchange.
+     *
+     * @param 'active'|'delisted' $status
+     *
+     * @throws TransportExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ClientExceptionInterface
+     */
+    private function getByStatus(string $status)
+    {
+        $params = ['state' => $status];
+        $response = $this->apiClient->get(self::BASE_URL, $params);
+
+        return $response->getContent();
     }
 }

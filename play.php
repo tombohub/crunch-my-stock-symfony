@@ -1,41 +1,37 @@
 <?php
 
-require __DIR__ . '/vendor/autoload.php';
+require __DIR__.'/vendor/autoload.php';
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
+use Symfony\Component\Serializer\Serializer;
+
+$encoders = [new JsonEncoder()];
+$normalizers = [new ObjectNormalizer(), new ArrayDenormalizer()];
+
+$serializer = new Serializer($normalizers, $encoders);
+
 
 class A
 {
-    public function __construct(public string $a, public string $b) {}
+    public function __construct(public string $name)
+    {
+    }
 }
 
-// Define class B with properties $c and $d
-class B
-{
-    public function __construct(public string $c, public string $d) {}
-}
+/**
+ * silently fails
+ */
+$serializer->deserialize('{}', A::class.'[]', 'json');
 
-// Create instances of class A
-$object1 = new A("value1a", "value1b");
-$object2 = new A("value2a", "value2b");
-$object3 = new A("value3a", "value3b");
+/*
+ * silently fails
+ */
+$serializer->deserialize('[]', A::class.'[]', 'json');
 
-// Create instances of class B
-$objectB1 = new B("value1c", "value1d");
-$objectB2 = new B("value2c", "value2d");
-$objectB3 = new B("value3c", "value3d");
-
-// Store the objects in an array
-$list = [$object1, $object2, $object3];
-
-// Store the objects in an array
-$listB = [$objectB1, $objectB2, $objectB3];
-
-$listC = array_merge($list, $listB);
-
-$collection = new ArrayCollection($list);
-
-$fil = $collection->filter(function ($el) {
-    return $el->a === 'value1a';
-});
-print_r($fil);
+/**
+ * errors
+ */
+$serializer->deserialize('[{}]', A::class.'[]', 'json');
