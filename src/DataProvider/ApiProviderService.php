@@ -1,16 +1,18 @@
 <?php
 
-namespace App\Service;
+namespace App\DataProvider;
 
 use App\Core\Dto\SecurityDto;
 use App\Core\Interface\DataProviderInterface;
-use App\DataProvider\Alphavantage\AlphavantageProvider;
+use App\DataProvider\Api\Alphavantage\AlphavantageProvider;
 
-readonly class DataProviderService implements DataProviderInterface
+/**
+ * 3rd party Api implementation of Data Provider.
+ * @package App\DataProvider
+ */
+readonly class ApiProviderService implements DataProviderInterface
 {
-    public function __construct(private AlphavantageProvider $alphavantageProvider)
-    {
-    }
+    public function __construct(private AlphavantageProvider $alphavantageProvider) {}
 
 
     /**
@@ -29,7 +31,8 @@ readonly class DataProviderService implements DataProviderInterface
                 type: $item->assetType,
                 ipoDate: $item->ipoDate,
                 delistingDate: $item->delistingDate,
-                status: $item->status);
+                status: $item->status
+            );
             $securityDtos[] = $securityDto;
         }
 

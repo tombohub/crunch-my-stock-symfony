@@ -2,14 +2,13 @@
 
 namespace App\Core\Service;
 
+use App\Core\Interface\DataProviderInterface;
 use App\Service\DataProviderService;
 use Psr\Log\LoggerInterface;
 
 class DataImportService
 {
-    public function __construct(private DataProviderService $dataProvider, private LoggerInterface $logger)
-    {
-    }
+    public function __construct(private DataProviderInterface $dataProvider, private LoggerInterface $logger) {}
 
     public function updateSecurities()
     {
