@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DataProvider\Alphavantage\Endpoint;
+namespace App\DataProvider\Api\Alphavantage\Endpoint;
 
 readonly class ListingDelistingStatusResponse
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DataProvider\Alphavantage;
+namespace App\DataProvider\Api\Alphavantage;
 
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Contracts\HttpClient\HttpClientInterface;

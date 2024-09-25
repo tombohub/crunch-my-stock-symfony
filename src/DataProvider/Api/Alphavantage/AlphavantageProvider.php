@@ -1,9 +1,9 @@
 <?php
 
-namespace App\DataProvider\Alphavantage;
+namespace App\DataProvider\Api\Alphavantage;
 
-use App\DataProvider\Alphavantage\Endpoint\ListingDelistingStatusEndpoint;
-use App\DataProvider\Alphavantage\Endpoint\ListingDelistingStatusResponse;
+use App\DataProvider\Api\Alphavantage\Endpoint\ListingDelistingStatusEndpoint;
+use App\DataProvider\Api\Alphavantage\Endpoint\ListingDelistingStatusResponse;
 
 /**
  * Class AlphavantageProvider

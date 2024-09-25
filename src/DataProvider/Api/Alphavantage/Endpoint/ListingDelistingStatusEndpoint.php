@@ -1,11 +1,12 @@
 <?php
 
-namespace App\DataProvider\Alphavantage\Endpoint;
+namespace App\DataProvider\Api\Alphavantage\Endpoint;
 
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
-use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
+use App\DataProvider\Api\Alphavantage\Endpoint\ListingDelistingStatusResponse;
 
 /**
  * Class ListingDelistingStatusEndpoint.
@@ -85,7 +86,7 @@ class ListingDelistingStatusEndpoint extends AbstractAlphavantageEndpoint
     private function deserializeCsvArray(string $content): array
     {
         /** @var array<int, ListingDelistingStatusResponse> $data * */
-        $data = $this->serializer->deserialize($content, self::RESPONSE_DTO.'[]', 'csv');
+        $data = $this->serializer->deserialize($content, self::RESPONSE_DTO . '[]', 'csv');
 
         return $data;
     }
