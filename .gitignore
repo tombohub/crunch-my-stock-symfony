@@ -12,8 +12,10 @@
 # python
 .venv
 
-#php storm
+#IDEs
 .idea
+.vscode
+
 ###> phpstan/phpstan ###
 phpstan.neon
 ###< phpstan/phpstan ###
