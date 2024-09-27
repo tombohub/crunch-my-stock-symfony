@@ -7,14 +7,13 @@ use App\Core\Interface\DataProviderInterface;
 use App\DataProvider\Api\Alphavantage\AlphavantageProvider;
 
 /**
- * Class ApiProviderService
  *
  * Implementation of DataProviderInterface that fetches securities data from a third-party API.
  *
  *
  * @package App\DataProvider
  */
-readonly class ApiProviderService implements DataProviderInterface
+readonly class ApiDataProvider implements DataProviderInterface
 {
     /**
      * ApiProviderService constructor.
