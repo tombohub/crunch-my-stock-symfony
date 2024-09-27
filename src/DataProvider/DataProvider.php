@@ -13,7 +13,7 @@ use App\DataProvider\Api\Alphavantage\AlphavantageProvider;
  *
  * @package App\DataProvider
  */
-readonly class ApiDataProvider implements DataProviderInterface
+readonly class DataProvider implements DataProviderInterface
 {
     /**
      * ApiProviderService constructor.
