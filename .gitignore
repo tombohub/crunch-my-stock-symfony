@@ -29,3 +29,6 @@ phpstan.neon
 /phpunit.xml
 .phpunit.result.cache
 ###< phpunit/phpunit ###
+
+# Additional folders
+./data/
