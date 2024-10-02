@@ -3,6 +3,7 @@
 namespace App\Core\Service;
 
 use App\Core\Interface\DataProviderInterface;
+use App\DataProvider\DataProvider;
 use App\Service\DataProviderService;
 use Psr\Log\LoggerInterface;
 

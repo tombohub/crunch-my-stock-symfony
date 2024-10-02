@@ -6,13 +6,11 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 /**
- * Class AlphavantageApiClient
- *
  * This class provides an interface for making requests to the Alphavantage API using an HTTP client.
  *
  * @package App\DataProvider\Alphavantage
  */
-class AlphavantageApiClient
+class AlphavantageHttpClient
 {
     /**
      * AlphavantageApiClient constructor.

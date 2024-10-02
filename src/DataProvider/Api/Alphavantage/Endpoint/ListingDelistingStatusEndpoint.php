@@ -6,7 +6,8 @@ use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
-use App\DataProvider\Api\Alphavantage\Endpoint\ListingDelistingStatusResponse;
+use App\DataProvider\Api\Alphavantage\Endpoint\ListingDelistingStatusData;
+use Exception;
 
 /**
  * Class ListingDelistingStatusEndpoint.
@@ -23,23 +24,23 @@ class ListingDelistingStatusEndpoint extends AbstractAlphavantageEndpoint
     private const string BASE_URL = 'https://www.alphavantage.co/query?function=LISTING_STATUS';
 
     /**
-     * DTO class to deserialize responses into.
+     * Data class to deserialize responses into.
      *
-     * @var class-string<ListingDelistingStatusResponse>
+     * @var class-string<ListingDelistingStatusData>
      */
-    private const string RESPONSE_DTO = ListingDelistingStatusResponse::class;
+    private const string DATA_CLASS = ListingDelistingStatusData::class;
 
     /**
      * Request for securities with status active on exchange market.
      *
-     * @return string data in form of csv
+     * @return ListingDelistingStatusData[] data
      *
      * @throws ClientExceptionInterface
      * @throws RedirectionExceptionInterface
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function getActive(): string
+    public function getActive(): array
     {
         return $this->getByStatus('active');
     }
@@ -47,14 +48,14 @@ class ListingDelistingStatusEndpoint extends AbstractAlphavantageEndpoint
     /**
      * Request for securities with status delisted and no longer trading on exchange market.
      *
-     * @return string retrieved data in form of csv
+     * @return ListingDelistingStatusData[] retrieved data in form of csv
      *
      * @throws ClientExceptionInterface
      * @throws RedirectionExceptionInterface
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function getDelisted(): string
+    public function getDelisted(): array
     {
         return $this->getByStatus('delisted');
     }
@@ -62,7 +63,7 @@ class ListingDelistingStatusEndpoint extends AbstractAlphavantageEndpoint
     /**
      * Get all securities, active and delisted together.
      *
-     * @return array<int, ListingDelistingStatusResponse> data
+     * @return array<int, ListingDelistingStatusData> data
      */
     public function getAll(): array
     {
@@ -74,38 +75,28 @@ class ListingDelistingStatusEndpoint extends AbstractAlphavantageEndpoint
     }
 
     /**
-     * Deserializes CSV content into an array of DTO objects.
-     *
-     * This method deserializes the provided CSV content into an array of objects
-     * of the type defined by the `$responseDto` class.
-     *
-     * @param string $content the CSV content to be deserialized
-     *
-     * @return array<int, ListingDelistingStatusResponse> an array of deserialized DTO objects
-     */
-    private function deserializeCsvArray(string $content): array
-    {
-        /** @var array<int, ListingDelistingStatusResponse> $data * */
-        $data = $this->serializer->deserialize($content, self::RESPONSE_DTO . '[]', 'csv');
-
-        return $data;
-    }
-
-    /**
      * Get securities by their status on market exchange.
      *
      * @param 'active'|'delisted' $status
+     *
+     * @return ListingDelistingStatusData[] data of endpoint
      *
      * @throws TransportExceptionInterface
      * @throws ServerExceptionInterface
      * @throws RedirectionExceptionInterface
      * @throws ClientExceptionInterface
      */
-    private function getByStatus(string $status)
+    private function getByStatus(string $status): array
     {
         $params = ['state' => $status];
         $response = $this->apiClient->get(self::BASE_URL, $params);
-
-        return $response->getContent();
+        $content = $response->getContent();
+        $data = $this->appSerializer->csvToArrayOfObjects($content, self::DATA_CLASS);
+        $errors = $this->validator->validate($data);
+        if (count($errors) === 0) {
+            $errorString = (string) $errors;
+            throw new Exception($errorString);
+        }
+        return $data;
     }
 }

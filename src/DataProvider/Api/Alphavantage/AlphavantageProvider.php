@@ -3,7 +3,7 @@
 namespace App\DataProvider\Api\Alphavantage;
 
 use App\DataProvider\Api\Alphavantage\Endpoint\ListingDelistingStatusEndpoint;
-use App\DataProvider\Api\Alphavantage\Endpoint\ListingDelistingStatusResponse;
+use App\DataProvider\Api\Alphavantage\Endpoint\ListingDelistingStatusData;
 
 /**
  * Class AlphavantageProvider
@@ -25,7 +25,7 @@ class AlphavantageProvider
      *
      * This method fetches all securities data from the listing/delisting status endpoint.
      *
-     * @return ListingDelistingStatusResponse[] An array of ListingDelistingStatusResponse objects representing the securities data.
+     * @return ListingDelistingStatusData[] An array of ListingDelistingStatusResponse objects representing the securities data.
      */
     public function getSecurities(): array
     {
