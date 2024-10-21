@@ -16,6 +16,9 @@
 .idea
 .vscode
 
+# Tools
+plantuml.jar
+
 ###> phpstan/phpstan ###
 phpstan.neon
 ###< phpstan/phpstan ###

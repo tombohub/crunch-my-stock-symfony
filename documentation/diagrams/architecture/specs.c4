@@ -1,0 +1,11 @@
+specification {
+    element actor
+    element group
+    element application
+    element package
+    element layer
+    element interface
+    element class
+
+    tag class
+}

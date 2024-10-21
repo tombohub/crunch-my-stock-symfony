@@ -1,0 +1,40 @@
+@startuml
+allow_mixing
+
+package PrimaryInfra {
+  package CLI {
+    component ImportSecuritiesCommand
+  }
+}
+
+package Core {
+  package AppService {
+    component ImportSecurities {
+    }
+  }
+}
+
+package SecondaryInfra {
+  package DataProvider {
+    component SecuritiesDataProvider
+    package DataSources {
+      component FMP
+      component Alphavantage
+    }
+  }
+}
+
+package Serializer {
+  component AppSerializer
+}
+
+package Lib {
+  component StringExpander
+}
+
+
+
+ImportSecuritiesCommand --> ImportSecurities
+SecuritiesDataProvider -0)- ImportSecurities
+
+@enduml

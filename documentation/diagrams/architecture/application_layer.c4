@@ -1,0 +1,21 @@
+model {
+  extend core {
+    layer application_layer {
+      title 'Application Layer'
+
+      package application_service {
+        title 'Application Service'
+
+        package import_securities_service {
+          title 'Import Securities Services'
+
+          interface DataProviderInterface {
+            title 'Data Provider Interface'
+          }
+          class ImportSecuritiesService {
+          }
+        }
+      }
+    }
+  }
+}

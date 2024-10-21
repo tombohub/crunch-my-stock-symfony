@@ -1,0 +1,16 @@
+views {
+    view index {
+        include *
+    }
+    view of core {
+        include *
+    }
+
+    view of driving_infrastructure {
+        include *, ImportSecuritiesCommand
+    }
+
+    view class {
+        include element.tag = #class
+    }
+}

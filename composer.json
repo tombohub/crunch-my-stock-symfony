@@ -75,7 +75,7 @@
             "@auto-scripts"
         ],
         "phpstan": "vendor/bin/phpstan",
-        "test": "bin/phpunit"
+        "test": "php bin/phpunit"
     },
     "conflict": {
         "symfony/symfony": "*"

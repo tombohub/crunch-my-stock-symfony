@@ -1,0 +1,27 @@
+
+model {
+  user = actor {
+    title 'User'
+    style {
+      shape person
+    }
+  }
+
+  group core 'Core' {
+
+  }
+
+  layer driving_infrastructure 'Driving Infrastructure' {
+    package cli 'CLI' {
+      class ImportSecuritiesCommand {
+        #class
+      }
+    }
+  }
+
+  layer driven_infrastructure {
+    title "Driven Infrastructure"
+  }
+
+}
+

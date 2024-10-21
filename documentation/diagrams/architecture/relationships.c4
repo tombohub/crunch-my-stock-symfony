@@ -1,0 +1,5 @@
+model {
+    driven_infrastructure -> core
+    driving_infrastructure -> core
+    driving_infrastructure.ImportSecuritiesCommand -> core.application_layer.application_service.ImportSecuritiesService
+}
